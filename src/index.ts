@@ -51,7 +51,9 @@ const { sLogger, setSLogger } = getState();
 const { scheduler, setScheduler } = getState();
 
 // logging
-const schedulerLogFile = path.join(config.LOGDIR, config.LOGFILE);
+const logDir = path.join(__dirname, config.LOGDIR);
+const schedulerLogFile = path.join(logDir, config.LOGFILE);
+if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true });
 console.log("==> Logging jobs to", schedulerLogFile);
 setSLogger(logger(schedulerLogFile));
 
